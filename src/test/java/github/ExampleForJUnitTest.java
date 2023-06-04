@@ -1,7 +1,6 @@
 package github;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,29 +9,23 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ExampleForJUnitTest {
     private final String codeSoftAssertions = """
-        @ExtendWith({SoftAssertsExtension.class})
-        class Tests {
-            @Test
-            void test() {
-                Configuration.assertionMode = SOFT;
-                open("page.html");
+                    @ExtendWith({SoftAssertsExtension.class})
+                    class Tests {
+                        @Test
+                        void test() {
+                            Configuration.assertionMode = SOFT;
+                            open("page.html");
 
-                $("#first").should(visible).click();
-                $("#second").should(visible).click();
-  }
-}
-        """;
+                            $("#first").should(visible).click();
+                            $("#second").should(visible).click();
+              }
+            }
+                    """;
 
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://github.com/";
         Configuration.browserSize = "1920x1080";
-        Configuration.holdBrowserOpen = true;
-    }
-
-    @AfterAll
-    static void afterAll() {
-        closeWindow();
     }
 
     @Test
