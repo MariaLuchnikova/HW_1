@@ -16,7 +16,7 @@ public class ChoiceSolutionsTest {
     }
 
     @Test
-    void actionsDragAndDrop() {
+    void choiceSolutions() {
         open("https://github.com/");
         $("[aria-label='Global']").$(byText("Solutions")).hover();
         $("[href='/enterprise']").click();
