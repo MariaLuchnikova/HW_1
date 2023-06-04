@@ -6,10 +6,23 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ExampleForJUnitTest {
+    private final String codeSoftAssertions = """
+        @ExtendWith({SoftAssertsExtension.class})
+        class Tests {
+            @Test
+            void test() {
+                Configuration.assertionMode = SOFT;
+                open("page.html");
+
+                $("#first").should(visible).click();
+                $("#second").should(visible).click();
+  }
+}
+        """;
+
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://github.com/";
@@ -29,7 +42,6 @@ public class ExampleForJUnitTest {
         $("#wiki-pages-filter").setValue("SoftAssertions");
         $("[data-filterable-for=wiki-pages-filter]").shouldHave(text("SoftAssertions"));
         $x("//a[text()='SoftAssertions']").click();
-        $("#wiki-body").shouldHave(text("JUnit5"));
-        $("#wiki-body").shouldHave(text("SoftAssertsExtension"));
+        $("#wiki-body").shouldHave(text("JUnit5")).closest("div").shouldHave(text(codeSoftAssertions));
     }
 }
