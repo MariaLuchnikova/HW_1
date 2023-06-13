@@ -1,4 +1,4 @@
-package github;
+package com.github;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
