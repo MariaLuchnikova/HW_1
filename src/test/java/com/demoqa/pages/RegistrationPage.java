@@ -9,26 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
-    SelenideElement
-            firstNameInput = $("#firstName"),
-            lastNameInput = $("#lastName"),
-            userName = $("#userName"),
-            userEmailInput = $("#userEmail"),
-            genderInput = $("#genterWrapper"),
-            userNumberInput = $("#userNumber"),
-            birthDayInput = $("#dateOfBirthInput"),
-            subjectsInput = $("#subjectsInput"),
-            hobbiesInput = $("#hobbiesWrapper"),
-            pictureUpload = $("#uploadPicture"),
-            addressInput = $("#currentAddress"),
-            stateCityWrapper = $("#stateCity-wrapper"),
-            stateInput = stateCityWrapper.$("#state"),
-            cityInput = stateCityWrapper.$("#city"),
-            currentAddressInput = $("#currentAddress"),
-            permanentAddressInput = $("#permanentAddress"),
-            buttonSubmit = $("#submit"),
-            formVerification = $(".modal-header"),
-            verifyTable = $(".table-responsive");
+    SelenideElement firstNameInput = $("#firstName"), lastNameInput = $("#lastName"), userName = $("#userName"), userEmailInput = $("#userEmail"), genderInput = $("#genterWrapper"), userNumberInput = $("#userNumber"), birthDayInput = $("#dateOfBirthInput"), subjectsInput = $("#subjectsInput"), hobbiesInput = $("#hobbiesWrapper"), pictureUpload = $("#uploadPicture"), addressInput = $("#currentAddress"), stateCityWrapper = $("#stateCity-wrapper"), stateInput = stateCityWrapper.$("#state"), cityInput = stateCityWrapper.$("#city"), currentAddressInput = $("#currentAddress"), permanentAddressInput = $("#permanentAddress"), buttonSubmit = $("#submit"), formVerification = $(".modal-header"), verifyTable = $(".table-responsive");
 
 
     public RegistrationPage verifyTextModalForm(String textHeader) {
@@ -38,16 +19,19 @@ public class RegistrationPage {
 
     public RegistrationPage openPagePracticeForm() {
         open("automation-practice-form");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        removeBannerAndFooter();
         return this;
     }
 
     public RegistrationPage openPageTextBox() {
         open("text-box");
+        removeBannerAndFooter();
+        return this;
+    }
+
+    public void removeBannerAndFooter() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
-        return this;
     }
 
     public RegistrationPage setFirstNameInput(String firstName) {
