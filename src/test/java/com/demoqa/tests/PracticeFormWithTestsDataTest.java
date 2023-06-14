@@ -1,4 +1,4 @@
-package com.demoqa.pages;
+package com.demoqa.tests;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,15 +6,16 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormTest extends BaseTest{
-    private final String textModalForm = "Thanks for submitting the form";
+public class PracticeFormWithTestsDataTest extends BaseTest{
 
     @Test
     void fillingStudentRegistrationFormTest() {
+        String firstName = "Maria";
+
         open("automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
-        $("#firstName").setValue("Maria");
+        $("#firstName").setValue(firstName);
         $("#lastName").setValue("Luchnikova");
         $("#userEmail").setValue("luchnikova@gmail.com");
         $("#genterWrapper").$(byText("Female")).click();
@@ -36,8 +37,10 @@ public class PracticeFormTest extends BaseTest{
         $("#city").$(byText("Karnal")).click();
         $("#submit").click();
 
+        String textModalForm = "Thanks for submitting the form";
+
         $(".modal-header").shouldHave(text(textModalForm));
-        $(".table-responsive").$(byText("Maria Luchnikova")).closest("tr").shouldHave(text("Student Name"));
+        $(".table-responsive").$(byText(firstName + " Luchnikova")).closest("tr").shouldHave(text("Student Name"));
         $(".table-responsive").$(byText("luchnikova@gmail.com")).closest("tr").shouldHave(text("Student Email"));
         $(".table-responsive").$(byText("Female")).closest("tr").shouldHave(text("Gender"));
         $(".table-responsive").$(byText("8123456790")).closest("tr").shouldHave(text("Mobile"));

@@ -2,29 +2,31 @@ package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import com.demoqa.pages.components.CalendarComponent;
+import com.demoqa.pages.components.FillingDataComponent;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
-    SelenideElement firstNameInput = $("#firstName"), lastNameInput = $("#lastName"), userName = $("#userName"), userEmailInput = $("#userEmail"), genderInput = $("#genterWrapper"), userNumberInput = $("#userNumber"), birthDayInput = $("#dateOfBirthInput"), subjectsInput = $("#subjectsInput"), hobbiesInput = $("#hobbiesWrapper"), pictureUpload = $("#uploadPicture"), addressInput = $("#currentAddress"), stateCityWrapper = $("#stateCity-wrapper"), stateInput = stateCityWrapper.$("#state"), cityInput = stateCityWrapper.$("#city"), currentAddressInput = $("#currentAddress"), permanentAddressInput = $("#permanentAddress"), buttonSubmit = $("#submit"), formVerification = $(".modal-header"), verifyTable = $(".table-responsive");
-
-
-    public RegistrationPage verifyTextModalForm(String textHeader) {
-        formVerification.shouldHave(text(textHeader));
-        return this;
-    }
+    FillingDataComponent fillingDataComponent = new FillingDataComponent();
+    SelenideElement firstNameInput = $("#firstName"),
+            lastNameInput = $("#lastName"),
+            userEmailInput = $("#userEmail"),
+            genderInput = $("#genterWrapper"),
+            userNumberInput = $("#userNumber"),
+            birthDayInput = $("#dateOfBirthInput"),
+            subjectsInput = $("#subjectsInput"),
+            hobbiesInput = $("#hobbiesWrapper"),
+            pictureUpload = $("#uploadPicture"),
+            addressInput = $("#currentAddress"),
+            stateCityWrapper = $("#stateCity-wrapper"),
+            stateInput = stateCityWrapper.$("#state"),
+            cityInput = stateCityWrapper.$("#city"),
+            buttonSubmit = $("#submit");
 
     public RegistrationPage openPagePracticeForm() {
         open("automation-practice-form");
-        removeBannerAndFooter();
-        return this;
-    }
-
-    public RegistrationPage openPageTextBox() {
-        open("text-box");
         removeBannerAndFooter();
         return this;
     }
@@ -36,11 +38,6 @@ public class RegistrationPage {
 
     public RegistrationPage setFirstNameInput(String firstName) {
         firstNameInput.setValue(firstName);
-        return this;
-    }
-
-    public RegistrationPage setUserName(String nameUser) {
-        userName.setValue(nameUser);
         return this;
     }
 
@@ -90,16 +87,6 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setCurrentAddressInput(String currentAddress) {
-        currentAddressInput.setValue(currentAddress);
-        return this;
-    }
-
-    public RegistrationPage setPermanentAddressInput(String permanentAddress) {
-        permanentAddressInput.setValue(permanentAddress);
-        return this;
-    }
-
     public RegistrationPage setStateInput(String state) {
         stateInput.click();
         stateInput.$(byText(state)).click();
@@ -112,18 +99,19 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage verifyModalForm(String textHeader) {
+        fillingDataComponent.verifyTextModalForm(textHeader);
+        return this;
+    }
+
+    public RegistrationPage verifyResults(String label, String values) {
+        fillingDataComponent.verifyResultsFillingForm(label, values);
+        return this;
+    }
+
     public void performSubmit() {
         buttonSubmit.click();
     }
 
-    public RegistrationPage verifyResultFillingForm(String label, String values) {
-        verifyTable.$(byText(label)).sibling(0).shouldHave(text(values));
-        return this;
-    }
 
-    public RegistrationPage verifyResultFillingTextBox(String nameID, String values) {
-        String verifyTextBox = "#output";
-        $(verifyTextBox + " #" + nameID).shouldHave(text(values));
-        return this;
-    }
 }
