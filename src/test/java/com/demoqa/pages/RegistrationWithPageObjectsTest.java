@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class RegistrationWithPageObjectsTest extends BaseTest {
     @Test
     void fillingStudentRegistrationFormTest() {
-        registrationPage.openPage()
+        registrationPage.openPagePracticeForm()
                 .setFirstNameInput("Maria")
                 .setLastNameInput("Luchnikova")
                 .setUserEmailInput("luchnikova@gmail.com")
@@ -21,15 +21,15 @@ public class RegistrationWithPageObjectsTest extends BaseTest {
                 .performSubmit();
 
         registrationPage.verifyTextModalForm("Thanks for submitting the form")
-                .verifyResult("Student Name", "Maria Luchnikova")
-                .verifyResult("Student Email", "luchnikova@gmail.com")
-                .verifyResult("Gender", "Female")
-                .verifyResult("Mobile", "8123456790")
-                .verifyResult("Date of Birth", "06 June,2012")
-                .verifyResult("Subjects", "Computer Science")
-                .verifyResult("Hobbies", "Sports")
-                .verifyResult("Picture", "AutoTesting.png")
-                .verifyResult("Address", "Istanbul")
-                .verifyResult("State and City", "Haryana Karnal");
+                .verifyResultFillingForm("Student Name", "Maria Luchnikova")
+                .verifyResultFillingForm("Student Email", "luchnikova@gmail.com")
+                .verifyResultFillingForm("Gender", "Female")
+                .verifyResultFillingForm("Mobile", "8123456790")
+                .verifyResultFillingForm("Date of Birth", "06 June,2012")
+                .verifyResultFillingForm("Subjects", "Computer Science")
+                .verifyResultFillingForm("Hobbies", "Sports")
+                .verifyResultFillingForm("Picture", "AutoTesting.png")
+                .verifyResultFillingForm("Address", "Istanbul")
+                .verifyResultFillingForm("State and City", "Haryana Karnal");
     }
 }

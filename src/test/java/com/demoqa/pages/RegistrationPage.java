@@ -12,6 +12,7 @@ public class RegistrationPage {
     SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
+            userName = $("#userName"),
             userEmailInput = $("#userEmail"),
             genderInput = $("#genterWrapper"),
             userNumberInput = $("#userNumber"),
@@ -23,17 +24,27 @@ public class RegistrationPage {
             stateCityWrapper = $("#stateCity-wrapper"),
             stateInput = stateCityWrapper.$("#state"),
             cityInput = stateCityWrapper.$("#city"),
+            currentAddressInput = $("#currentAddress"),
+            permanentAddressInput = $("#permanentAddress"),
             buttonSubmit = $("#submit"),
             formVerification = $(".modal-header"),
             verifyTable = $(".table-responsive");
+
 
     public RegistrationPage verifyTextModalForm(String textHeader) {
         formVerification.shouldHave(text(textHeader));
         return this;
     }
 
-    public RegistrationPage openPage() {
+    public RegistrationPage openPagePracticeForm() {
         open("automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+        return this;
+    }
+
+    public RegistrationPage openPageTextBox() {
+        open("text-box");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;
@@ -41,6 +52,11 @@ public class RegistrationPage {
 
     public RegistrationPage setFirstNameInput(String firstName) {
         firstNameInput.setValue(firstName);
+        return this;
+    }
+
+    public RegistrationPage setUserName(String nameUser) {
+        userName.setValue(nameUser);
         return this;
     }
 
@@ -90,6 +106,16 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setCurrentAddressInput(String currentAddress) {
+        currentAddressInput.setValue(currentAddress);
+        return this;
+    }
+
+    public RegistrationPage setPermanentAddressInput(String permanentAddress) {
+        permanentAddressInput.setValue(permanentAddress);
+        return this;
+    }
+
     public RegistrationPage setStateInput(String state) {
         stateInput.click();
         stateInput.$(byText(state)).click();
@@ -106,8 +132,14 @@ public class RegistrationPage {
         buttonSubmit.click();
     }
 
-    public RegistrationPage verifyResult(String label, String values) {
+    public RegistrationPage verifyResultFillingForm(String label, String values) {
         verifyTable.$(byText(label)).sibling(0).shouldHave(text(values));
+        return this;
+    }
+
+    public RegistrationPage verifyResultFillingTextBox(String nameID, String values) {
+        String verifyTextBox = "#output";
+        $(verifyTextBox + " #" + nameID).shouldHave(text(values));
         return this;
     }
 }
